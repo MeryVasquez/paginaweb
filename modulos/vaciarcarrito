@@ -1,0 +1,19 @@
+<?php
+require "../config.php";
+
+$json = file_get_contents('php://input');
+$data = json_decode($json);
+
+if (isset($data)) {
+    $strsql = "DELETE FROM productos";
+    $stmt = $mysqli->prepare($strsql);
+    $stmt->execute();
+    if ($stmt->errno == 0) {
+        $text = "El carrito se vacio correctamente";
+    } else {
+        $text = "No se pudo ejecutar la consulta";
+    }
+} else {
+    $text = "No se recibieron los parametros";
+}
+?>
